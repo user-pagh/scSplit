@@ -585,12 +585,12 @@ Options:
             assignment['Barcode'] = model.reassigned[n]
             if n != model.doublet:
                 assignment['Cluster'] = 'SNG-' + str(n)
-                assignments = assignments.append(assignment)
+                assignments = pd.concat([assignments, assignment]) #Before edits 20250604: assignments = assignments.append(assignment)
         if doublets != 0:   # if doublet cluster is expected
             assignment = pd.DataFrame()
             assignment['Barcode'] = model.reassigned[model.doublet]
             assignment['Cluster'] = 'DBL-' + str(model.doublet)
-            assignments = assignments.append(assignment)
+            assignments = pd.concat([assignments, assignment]) #Before edits 20250604: assignments = assignments.append(assignment)
         assignments.to_csv(os.path.join(args.out, r'scSplit_result.csv'), sep='\t', index=False)
         model.P_s_c.to_csv(os.path.join(args.out, r'scSplit_P_s_c.csv'))
         with open(os.path.join(args.out, r'scSplit_dist_variants.txt'), 'w') as logfile:
